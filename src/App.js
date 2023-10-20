@@ -46,7 +46,7 @@ function App() {
           {!playBlackjack && !learnBasic && !learnRules && !about ? <button className='beginning-button' onClick={handlePlay}>Play Blackjack!</button> : null}
           {!learnBasic && !playBlackjack && !learnRules && !about ? <button className='beginning-button' onClick={handleBasic}>Review Basic Strategy!!!</button> : null}
           {!learnBasic && !playBlackjack && !learnRules && !about ? <button className='beginning-button' onClick={handleRules}>Go Over The Rules!!!!!!!!!!!!!!!!!!</button> : null}
-          {!learnBasic && !playBlackjack && !learnRules && !about ? <button className='beginning-button' onClick={handleAbout}>About BlackjackBro</button> : null}
+          {!learnBasic && !playBlackjack && !learnRules && !about ? <button className='beginning-button' onClick={handleAbout}>About</button> : null}
 
         </div>
       </div>

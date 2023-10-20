@@ -30,8 +30,6 @@ const BlackJack = () => {
 
     const [basicMessage, setBasicMessage] = useState('');
 
-    const [basicGame, setBasicGame] = useState(true);
-    const [secondPlayerGame, setSecondPlayerGame] = useState(false);
     const [gameWithTips, setGameWithTips] = useState(false);
 
     const [player2Results, setPlayer2Results] = useState("...");
@@ -85,24 +83,6 @@ const BlackJack = () => {
     }
 
     function getDealerCards(cards) {
-
-        // console.log("CARDS LENGTH: ", cards.length);
-        
-        // if (additionalPlayerCards && deck.length < 10) {
-        //     setMessage("Time for a new deck!");
-        //     setTimeout(() => {
-        //         newGame();
-        //         return;
-        //     }, 2000);
-     
-        // } else if (!additionalPlayerCards && deck.length < 6) {
-        //     setMessage("Time for a new deck!");
-        //     setTimeout(() => {
-        //         newGame();
-        //         return;
-        //     }, 1500);
-         
-        // }
 
         let randomIndex = Math.floor(Math.random() * cards.length);
         let workingHidden = cards[randomIndex];
@@ -462,14 +442,14 @@ const BlackJack = () => {
         //         newGame();
         //         return;
         //     }, 2000);
-     
+
         // } else if (!additionalPlayerCards && deck.length < 6) {
         //     setMessage("Time for a new deck!");
         //     setTimeout(() => {
         //         newGame();
         //         return;
         //     }, 1500);
-         
+
         // }
 
         let newDeck = [...deck];
@@ -527,11 +507,10 @@ const BlackJack = () => {
         setAdditionalPlayerCards([]);
     }
 
-    function noShowAddPlayer() {
-        setShowAddPlayer(false);
-    }
 
     function giveBasicTips(sum) {
+
+        console.log("DEALER CARDS WITHIN GIVEBASICTIPS: ", dealerCards);
 
         console.log("PLAYER SUM WITHIN GIVE BASIC TIPS: ", sum);
         console.log("DEALER CARDS [0][1] IN GIVE BASIC TIPS: ", dealerCards[0][0]);
@@ -539,12 +518,14 @@ const BlackJack = () => {
 
         setGameWithTips(true);
 
-        //if you have an ace and a seven, hit if the dealers up card is nine, 10, or ace
-
-        if (sum === 18 && ((getValue(playerCards[0][0]) === 11 | getValue(playerCards[1][0]) === 11)
-            && (getValue(playerCards[0][0]) === 7 | getValue(playerCards[1][0])) === 7)) {
+        if (sum === 18 && getValue(playerCards[0][0]) === 11 | getValue(playerCards[1][0]) === 11
+            && getValue(playerCards[0][0]) === 7 | getValue(playerCards[1][0]) === 7) {
             setBasicMessage("Hit Bro BRO BROOOO");
-        } else if (sum >= 17) {
+        // } else if (getValue(playerCards[0][0]) === 11 | getValue(playerCards[1][0]) === 11
+        //     && getValue(playerCards[0][0]) <= 6 | getValue(playerCards[1][0]) <= 6) {
+        //     setBasicMessage("Hit Bro HIIIT");
+
+        } else if (sum >= 16) {
             setBasicMessage("Stand");
         } else if (sum <= 12) {
             setBasicMessage("Hit");
@@ -553,11 +534,7 @@ const BlackJack = () => {
         } else if (sum === 13 || sum === 14 || sum === 15 || sum === 16 && getValue(dealerCards[0][0]) > 6) {
             setBasicMessage("Hit Bro")
         }
-
     }
-
-
-    // console.log("PlayerSum right before return: ", playerSum);
 
     return (
 
