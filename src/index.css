@@ -7,7 +7,491 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+form{
+  display: flex;
+  justify-content: center;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh; */
+}
+
+
+
+.theWholeDamnImage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 125%;
+  min-width: 100%;
+  /* min-width: 100vw; */
+  background: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Blackjack21.jpg) no-repeat center center fixed;
+  background-size: cover;
+  opacity: .30;
+  z-index: 0;
+}
+
+h1,
+h2,
+h3 {
+  /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+  font-family: 'Cormorant', serif;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+
+}
+
+li {
+  margin: .5rem;
+}
+
+.front-app-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.front-app-button-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+
+/* --- BASIC --- */
+
+.basic-container {
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.basic-button {
+  margin: 5px;
+  height: 2rem;
+  width: 3rem;
+  ;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+  background-color: white;
+  cursor: pointer;
+  font-size: 1rem;
+
+}
+
+
+/* --- GAME WITH TIPS --- */
+
+.conditional-tip-container {
+  display: flex;
+  border: 1 black solid;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+}
+
+.conditional-tip-render {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+  background-color: transparent;
+
+}
+
+/* .conditional-tip-render:hover {
+  background-color: white;
+  transition: 1s;
+} */
+
+.trying-to-make-box-around-tips {
+  border: 1px solid black;
+  padding: .75rem;
+  margin: 0.75rem;
+}
+
+
+.trying-to-make-box-around-tips:hover {
+  background-color: white;
+  transition: 1s;
+}
+
+
+/* --- RULES --- */
+
+.rules-container {
+  margin: 1rem;
+}
+
+.rules-list {
+  display: flex;
+  flex-direction: column;
+  /* justify-content:flex-start; */
+  align-items: center;
+}
+
+/* --- ABOUT --- */
+.about-container{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.about-button-container{
+  display:flex;
+  flex-direction: column;
+}
+
+.about-graphs{
+  font-size: 1.25rem;
+}
+
+
+
+
+/* --- JackChoices --- */
+
+.jack-choices-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+
+
+/* --- BLACKJACK --- */
+
+.blackjack-container {
+  opacity: 1 !important;
+  z-index: 95;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  width: 100%;
+}
+
+.blackjack-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: .5rem;
+  margin-right: 2rem;
+  margin-left: 2rem;
+  margin-bottom:.25rem;
+}
+
+.blackjack-and-tips-container {
+  display: flex;
+  justify-content: center;
+}
+
+
+
+.blackjack-container-no-tips {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+.main-game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.blackjack-head {
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+  /* margin-bottom: 0 */
+  /* margin: 0; */
+}
+
+.dealer-head {
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+  margin: 0.5rem;
+}
+
+.dealer-cards {
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+}
+
+.dealers-container{
+  display:flex;
+}
+
+.players-container {
+  display: flex;
+  /* flex-direction: column; */
+}
+
+
+.added-player-div {
+  display: flex;
+  flex-direction: column;
+  /* margin: 1rem; */
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.additional-player-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+.player-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.player-two-money-div {
+  display: flex;
+  flex-direction: column;
+  margin: .75rem;
+  justify-content: space-around;
+}
+
+
+.you-and-money-div {
+  display: flex;
+  margin: .75rem;
+  justify-content: space-around;
+  width: 75%;
+}
+
+.your-money-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-sums {
+  margin: 0;
+}
+
+.pot-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.your-total-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.your-total-head {
+  display: flex;
+  margin-bottom: 0;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+}
+
+.pot-head {
+  display: flex;
+  margin-bottom: 0;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+}
+
+.your-money-head {
+  display: flex;
+  margin-bottom: 0;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+
+}
+
+.pot-total-div {
+  display: flex;
+  padding: .25rem;
+  margin: .5rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.player-place-bet-div {
+  display: flex;
+  justify-content: center;
+  margin: .5rem;
+}
+
+.bet-input {
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+  width: 65%;
+}
+
+
+/* --- BUTTONS --- */
+
+.beginning-button {
+  margin: .75rem;
+  height: 6rem;
+  width: 50%;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.beginning-button:hover {
+  background-color: white;
+  transition: 1s;
+}
+
+.blackjack-banner-button {
+  margin: .75rem;
+  height: 5.5rem;
+  width: 22%;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.blackjack-banner-button:hover {
+  background-color: white;
+  transition: 1s;
+}
+
+.new-hand-button-div {
+  margin: 5px;
+  margin-bottom: 1rem;
+}
+
+.button {
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+}
+
+
+
+
+/* --- IMAGES --- */
+
+.back-card {
+  width: 6rem;
+  height: 9rem;
+  margin: .25rem;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+}
+
+.card {
+  width: 6rem;
+  height: 9rem;
+  margin: .25rem;
+  position: relative;
+  opacity: 1 !important;
+  z-index: 95;
+}
+
+.players-cards-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem;
+}
+
+
+
+/* --- MEDIA QUERIES --- */
+
+
+@media only screen and (max-width:800px) {
+  .card {
+    width: 6rem;
+    height: 9rem;
+  }
+
+  .back-card {
+    width: 6rem;
+    height: 9rem;
+  }
+
+}
+
+
+@media only screen and (max-width:705px) {
+  .blackjack-banner-button {
+    margin: .75rem;
+    height: 5rem;
+    width: 20%;
+    position: relative;
+    opacity: 1 !important;
+    z-index: 95;
+    background-color: transparent;
+    cursor: pointer;
+    font-size: 1rem;
+
+  }
+
+}
+
+@media only screen and (max-width:650px) {
+  .blackjack-banner-button {
+    height: 4.8rem;
+    width: 19%;
+  }
+
+}
+
+@media only screen and (max-width:800px) {
+  .card {
+    width: 5rem;
+    height: 8.25rem;
+  }
+
+  .back-card {
+    width: 5rem;
+    height: 8.25rem;
+  }
+
 }
