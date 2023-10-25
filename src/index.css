@@ -187,7 +187,7 @@ li {
   flex-direction: column;
   justify-content: center;
   /* align-items: center; */
-  width: 100%;
+  width: 82%;
 }
 
 .blackjack-banner {
@@ -289,7 +289,7 @@ li {
   display: flex;
   margin: .75rem;
   justify-content: space-around;
-  width: 75%;
+  width: 70%;
 }
 
 .your-money-div {
@@ -420,7 +420,7 @@ li {
 /* --- IMAGES --- */
 
 .back-card {
-  width: 5rem;
+  width: 5.5rem;
   height: 8.5rem;
   margin: .25rem;
   position: relative;
@@ -429,7 +429,7 @@ li {
 }
 
 .card {
-  width: 5rem;
+  width: 5.5rem;
   height: 8.5rem;
   margin: .25rem;
   position: relative;
@@ -462,7 +462,27 @@ li {
 
 } */
 
+@media only screen and (max-width:1100px) {
+  .blackjack-container {
+    width: 86%;
+
+  }
+}
+
+@media only screen and (max-width:1000px) {
+  .blackjack-container {
+    width: 91%;
+
+  }
+}
+
+
 @media only screen and (max-width:900px) {
+
+  .blackjack-container {
+    width: 95%;
+  }
+
   .your-money-head {
     font-size: 1.1rem;
   }
@@ -474,15 +494,21 @@ li {
 }
 
 @media only screen and (max-width:800px) {
+
+  .blackjack-container {
+    width: 98%;
+  }
   .your-money-head {
     font-size: 1rem;
-}
+  }
 
-.your-total-head{
-  font-size: 1rem;
+  .your-total-head {
+    font-size: 1rem;
+  }
 
-}
-
+  .blackjack-banner-button{
+    font-size: .9rem;
+  }
 
 
 }
@@ -498,7 +524,7 @@ li {
     z-index: 95;
     background-color: transparent;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: .85rem;
 
   }
 
@@ -521,6 +547,19 @@ li {
   .back-card {
     width: 5rem;
     height: 8.25rem;
+  }
+
+}
+
+@media only screen and (max-width:700px) {
+  .card {
+    width: 4.75rem;
+    height: 8rem;
+  }
+
+  .back-card {
+    width: 4.75rem;
+    height: 8rem;
   }
 
 }
