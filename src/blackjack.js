@@ -17,7 +17,7 @@ const BlackJack = () => {
     const [hitCard, setHitCard] = useState(null);
     const [message, setMessage] = useState("Enjoy the Game!");
     const [playerMoney, setPlayerMoney] = useState(500);
-    const [playerBet, setPlayerBet] = useState(5);
+    // const [playerBet, setPlayerBet] = useState(0);
     const [pot, setPot] = useState(0);
     const [bet, setBet] = useState(0);
     const [betPlaced, setBetPlaced] = useState(false);
@@ -33,6 +33,8 @@ const BlackJack = () => {
     const [gameWithTips, setGameWithTips] = useState(false);
 
     const [player2Results, setPlayer2Results] = useState("...");
+
+    const [canStand, setCanStand] = useState(true);
 
 
     useEffect(() => {
@@ -52,11 +54,11 @@ const BlackJack = () => {
                 workingDeck.push(values[j] + "-" + types[i]);
             }
         }
-        for (let i = 0; i < types.length; i++) {
-            for (let j = 0; j < values.length; j++) {
-                workingDeck.push(values[j] + "-" + types[i]);
-            }
-        }
+        // for (let i = 0; i < types.length; i++) {
+        //     for (let j = 0; j < values.length; j++) {
+        //         workingDeck.push(values[j] + "-" + types[i]);
+        //     }
+        // }
 
         return workingDeck;
     }
@@ -102,7 +104,7 @@ const BlackJack = () => {
 
         setDealerCards([secondCard, workingHidden]);
 
-        console.log("DEALER CARDS [0]: ", dealerCards[0]);
+        // console.log("DEALER CARDS [0]: ", dealerCards[0]);
 
         return cards
 
@@ -113,7 +115,6 @@ const BlackJack = () => {
         let cards = [...deck];
         console.log("CARDS FROM WITHIN ASSIGN PLAYER CARDS: ", cards);
         let randomIndex = Math.floor(Math.random() * cards.length);
-        // console.log("RANDOM INDEX within Assign Player Cards: ", randomIndex)
         let card1 = cards[randomIndex];
         cards.splice(randomIndex, 1);
 
@@ -121,17 +122,12 @@ const BlackJack = () => {
         let card2 = cards[randomIndex2];
         cards.splice(randomIndex2, 1);
 
-        // console.log("RANDOM INDEX AND CARD ONE: ", randomIndex, card1);
-
         let cardOneValue = getValue(card1, playerSum);
-        console.log("CARD ! VALUE: ", card1)
         let updatedSum = playerSum + cardOneValue;
 
-        // console.log("RANDOM INDEX AND CARD TWO: ", randomIndex2, card2);
 
         let cardTwoValue = getValue(card2, updatedSum);
-        console.log("CARD TWO VALUE WITHIN ASSIGN ADDITIONAL PLAYER AND UPDATED SUM: ", cardTwoValue, updatedSum);
-
+        // console.log("CARD TWO VALUE WITHIN ASSIGN ADDITIONAL PLAYER AND UPDATED SUM: ", cardTwoValue, updatedSum);
         let newPlayerSum = cardOneValue + cardTwoValue;
 
         setPlayerSum(newPlayerSum);
@@ -141,23 +137,32 @@ const BlackJack = () => {
             giveBasicTips(newPlayerSum);
         }
 
+        // console.log("NEW PLAYER SUM WITHIN ASSIGN PLAYER CARDS: ", newPlayerSum)
+        // if(newPlayerSum === 21){
+        //     declareBlackJack();
+        // }
+
         return cards;
     }
 
     function AssignAdditionalPlayerCards(deck) {
 
-        console.log("DECK AT THE BEGINNING OF ASSIGN ADDITIONAL PLAYER CARDS: ", deck);
-        // console.log("CRDS AT THE BEGINNING OF ASSIGN ADDITION PLAYER CARDS: ", cards);
+        console.log("DECK AT THE START OF ASSIGN ADDITIONAL PLAYER CARDS: ", deck)
 
         let cards = [...deck];
+        console.log("CARDS AFTER ASSIGNMENT IN ASSIGN ADDITIONAL PLAYER CARDS: ", cards)
+
 
         let randomIndex = Math.floor(Math.random() * cards.length);
-
         let card1 = cards[randomIndex];
+        console.log("card1 in ASSIGN ADDITIONAL PLAYER CARDS: ", card1)
         cards.splice(randomIndex, 1);
 
-        let card2 = cards[randomIndex];
-        cards.splice(randomIndex, 1);
+        let randomIndex2 = Math.floor(Math.random() * cards.length);
+        let card2 = cards[randomIndex2];
+        console.log("card2 in ASSIGN ADDITIONAL PLAYER CARDS: ", card2)
+
+        cards.splice(randomIndex2, 1);
 
         let cardOneValue = getValue(card1, playerSum);
         let updatedSum = playerSum + cardOneValue;
@@ -166,16 +171,19 @@ const BlackJack = () => {
 
         let newPlayerSum = cardOneValue + cardTwoValue;
 
-        setAdditionalPlayerSum(newPlayerSum);
+        // setAdditionalPlayerSum(newPlayerSum);
         // console.log("ADDITIONAL PLAYER SUM: ", additionalPlayerSum);
 
-        setAdditionalPlayerCards([card1, card2]);
-
-        return cards
+        return {
+            cards: cards,
+            additionalPlayerSum: newPlayerSum,
+            additionalPlayerCards: [card1, card2]
+        }
 
     }
 
     const reduceAce = (cards) => {
+        console.log("CARDS WITHIN REDUCE ACE: ", cards);
         let sum = getHandsValue(cards);
         for (let i = 0; i < cards.length; i++) {
             if (cards[i][0] === 'A' && sum > 21) {
@@ -187,15 +195,18 @@ const BlackJack = () => {
     }
 
     function getHandsValue(cards) {
+
+        console.log("CARDS WITHIN GET HANDS VALUE: ", cards)
+
         let sum = 0;
         cards.forEach((card) => {
+            console.log("CARD WITHIN FOR EACH LOOP OF GET HANDS VALUE: ", card)
             sum += getValue(card);
         })
         return sum
     }
 
     const getValue = (card, sum) => {
-        // console.log("FROM GET VALUE, CARD: ", card);
 
         let singleCardArray = card.split("-");
 
@@ -221,15 +232,15 @@ const BlackJack = () => {
 
     function dealerHit(cards, playerSum) {
 
-        console.log("DEALER CARDS AT THE START OF DEALER HIT: ", dealerCards);
+        // console.log("DEALER CARDS AT THE START OF DEALER HIT: ", dealerCards);
 
-        console.log("INSIDE DEALER HIT: ", cards, playerSum);
+        // console.log("INSIDE DEALER HIT: ", cards, playerSum);
 
         let workingDealerSum = dealerSum;
         let newDealerCards = [];
 
         while (playerSum > workingDealerSum && playerSum <= 21) {
-            console.log("WITHIN DEALER HIT PLAYER SUM WORKING DEALEr SUM: ", playerSum, workingDealerSum);
+            // console.log("WITHIN DEALER HIT PLAYER SUM WORKING DEALEr SUM: ", playerSum, workingDealerSum);
             let randomIndex = Math.floor(Math.random() * cards.length);
             let newCard = cards[randomIndex];
             newDealerCards.push(newCard);
@@ -246,6 +257,14 @@ const BlackJack = () => {
 
         const newDealerSum = reduceAce(dealerCards.concat(newDealerCards));
 
+        let secondPlayerResults;
+
+        if (addPlayer) {
+            secondPlayerResults = secondPlayerHit();
+            setAdditionalPlayerCards(additionalPlayerCards.concat(secondPlayerResults.additionalPlayerCards));
+            setAdditionalPlayerSum(secondPlayerResults.additionalPlayerSum);
+        }
+
         return {
             newCards: newDealerCards,
             cards,
@@ -254,20 +273,53 @@ const BlackJack = () => {
 
     }
 
+    function secondPlayerHit() {
+
+        let cards = deck;
+
+        let workingPlayerSum = additionalPlayerSum;
+        let newSecondPlayerCards = [];
+
+        while (workingPlayerSum < 16) {
+            let randomIndex = Math.floor(Math.random() * cards.length);
+            let newCard = cards[randomIndex];
+            console.log("NEW CARD WITHIN SECOND PLAYER HIT: ", newCard)
+            newSecondPlayerCards.push(newCard);
+            cards.splice(randomIndex, 1);
+            let newCardValue = getValue(newCard, workingPlayerSum);
+            workingPlayerSum += newCardValue;
+        }
+
+        const newAdditionalPlayerSum = reduceAce(additionalPlayerCards.concat(newSecondPlayerCards));
+
+        // setAdditionalPlayerCards([...additionalPlayerCards, ...newSecondPlayerCards]);
+        // console.log("ADDITIONAL PLAYER CARDS IN SECOND PLAYER CARD HIT: ", additionalPlayerCards)
+
+        return {
+            additionalPlayerCards: newSecondPlayerCards,
+            cards,
+            additionalPlayerSum: newAdditionalPlayerSum
+        }
+
+    }
 
     const stay = (player) => {
-
-        let staySum = playerSum;
-
+        // let staySum = playerSum;
         if (!betPlaced) {
             setMessage("Place Bet");
             return;
         };
 
-        // let hitResults = hit([...deck], { sum: player.sum, type: "" });
-        // let dealerResults = dealerHit(hitResults.cards, hitResults.updatedSum);
+        let secondPlayerResults;
+        if (addPlayer) {
+            secondPlayerResults = secondPlayerHit();
+            setAdditionalPlayerCards(additionalPlayerCards.concat(secondPlayerResults.additionalPlayerCards));
+            setAdditionalPlayerSum(secondPlayerResults.additionalPlayerSum);
+        }
         console.log("++++++++++++++++++++++++++++++++++")
-        let dealerResults = dealerHit(deck, playerSum);
+
+        const deckAfterSecondPlayer = addPlayer ? secondPlayerResults.cards : deck;
+        let dealerResults = dealerHit(deckAfterSecondPlayer, playerSum);
         console.log(dealerResults);
 
         setDealerSum(dealerResults.dealerSum);
@@ -275,14 +327,17 @@ const BlackJack = () => {
         setCanHit(false);
         setShowDealerCard(true);
 
+        // const deckUpdate = addPlayer ? secondPlayerResults.cards : dealerResults.cards;
+
         const newPlayerSum = reduceAce(playerCards);
 
         declareWinner(newPlayerSum, dealerResults.dealerSum);
 
         setPlayerSum(newPlayerSum);
+        setDeck(dealerResults.cards);
 
         if (addPlayer) {
-            declareWinnerSecondPlayer();
+            declareWinnerSecondPlayer(secondPlayerResults.additionalPlayerSum, dealerResults.dealerSum);
         }
 
         setTimeout(() => {
@@ -302,7 +357,7 @@ const BlackJack = () => {
         cards.splice(randomIndex, 1);
         // console.log("RANDOM CARD IN HIT: ", randomCard)
 
-        let sumCount = player.sum + getValue(randomCard);
+        // let sumCount = player.sum + getValue(randomCard);
 
         const newPlayerSum = reduceAce(playerCards.concat(randomCard));
 
@@ -312,6 +367,10 @@ const BlackJack = () => {
 
         console.log("PLAYER.SUM FROM HIT: ", player.sum);
         console.log("RANDOM CARD VALUE FROM HIT: ", getValue(randomCard));
+
+        // if(addAPlayer){
+        //     secondPlayerHit();
+        // }
 
         return {
             newCard: randomCard,
@@ -345,12 +404,71 @@ const BlackJack = () => {
         setDealerSum(dealerResults.dealerSum);
         setDealerCards(dealerCards.concat(dealerResults.newCards));
         setDeck(dealerResults.cards);
+
+        // if (addPlayer) {
+        //     secondPlayerHit();
+        // }
+    }
+
+    function declareBlackJack() {
+        setMessage("Natural Blackjack! You win!");
+        setPlayerMoney(playerMoney + (pot * 1.5));
+
+        clearPlayerHands();
+        clearDealerCards();
+        clearAdditionalPlayerHand();
+        clearPlayerSum();
+        clearDealerSum();
+        clearAdditionalPlayerSum();
+        setPlayer2Results("...")
+        setBetPlaced(false);
+        setMessage("Enjoy the game!");
+        setPot(5);
+        setShowDealerCard(false);
+
+        console.log("DECK LENGTH WITHIN newHAND: ", deck.length);
+
+        if (additionalPlayerCards && deck.length < 10) {
+            setMessage("Time for a new deck!");
+            setTimeout(() => {
+                newGame();
+                return;
+            }, 2000);
+
+        } else if (!additionalPlayerCards && deck.length < 6) {
+            setMessage("Time for a new deck!");
+            setTimeout(() => {
+                newGame();
+                return;
+            }, 1500);
+
+        }
+
+        let newDeck = [...deck];
+        console.log("DECK-LENGTH WITHIN NEW HAND: ", newDeck.length);
+        let updatedDeck = getDealerCards(newDeck);
+        // console.log("Deck AFTER DEALER CARDS: ", updatedDeck.length);
+        let finalUpdatedDeck = AssignPlayerCards(updatedDeck);
+        // console.log("Deck AFTER PLAYER CARDS: ", finalUpdatedDeck.length);
+        setDeck(finalUpdatedDeck);
+
+        if (addPlayer) {
+            AssignAdditionalPlayerCards(finalUpdatedDeck);
+        }
     }
 
     function declareWinner(playerSum, dealerSum) {
 
         if (playerSum > 21) {
             setMessage("Dealer Wins");
+        }
+        else if (playerSum === 21 && playerCards.length === 2) {
+            setMessage("Natural Blackjack! You win!");
+            addWinnings();
+        }
+        else if (playerSum === 21 && playerCards.length === 2) {
+            setMessage("Blackjack! You win!");
+            addWinnings();
         }
         else if (dealerSum > 21) {
             setMessage("You Win!");
@@ -372,7 +490,7 @@ const BlackJack = () => {
 
     //additionalPlayerSum
 
-    function declareWinnerSecondPlayer() {
+    function declareWinnerSecondPlayer(additionalPlayerSum, dealerSum) {
         if (additionalPlayerSum > 21) {
             setPlayer2Results("...loses.");
         }
@@ -422,9 +540,41 @@ const BlackJack = () => {
 
     function newHand() {
 
+        console.log("ADD PLAYER IN NEW HAND: ", addPlayer);
+        console.log("DECK AT STRT OF NEW HAND: ", deck);
+        console.log("ADDITIONAL PLAYER CARDS LENGTH AT START OF NEW HAND: ", additionalPlayerCards.length);
+
+        if (addPlayer && deck.length < 12) {
+            setMessage("Time for a new deck!");
+            setTimeout(() => {
+                newDeck();
+                return;
+            }, 2000);
+        } else 
+        if (additionalPlayerCards.length === 0 && deck.length < 7) {
+            setMessage("Time for a new deck!");
+            setTimeout(() => {
+                newDeck();
+                return;
+            }, 1500);
+        
+        // if (addPlayer && deck.length < 12) {
+        //     setMessage("Time for a new deck!");
+        //     setTimeout(() => {
+        //         newGame();
+        //         return;
+        //     }, 2000);
+        // } else 
+        // if (additionalPlayerCards.length === 0 && deck.length < 7) {
+        //     setMessage("Time for a new deck!");
+        //     setTimeout(() => {
+        //         newGame();
+        //         return;
+        //     }, 1500);
+        } else {
+
         clearPlayerHands();
         clearDealerCards();
-        clearAdditionalPlayerHand();
         clearPlayerSum();
         clearDealerSum();
         clearAdditionalPlayerSum();
@@ -433,46 +583,69 @@ const BlackJack = () => {
         setMessage("Enjoy the game!");
         setPot(0);
         setShowDealerCard(false);
-
         console.log("DECK LENGTH WITHIN newHAND: ", deck.length);
-
-        // if (additionalPlayerCards && deck.length < 10) {
-        //     setMessage("Time for a new deck!");
-        //     setTimeout(() => {
-        //         newGame();
-        //         return;
-        //     }, 2000);
-
-        // } else if (!additionalPlayerCards && deck.length < 6) {
-        //     setMessage("Time for a new deck!");
-        //     setTimeout(() => {
-        //         newGame();
-        //         return;
-        //     }, 1500);
-
-        // }
-
+        console.log("ADDITIONAL PLAYER CARDS.LENTH WITHIN NEW HAND: ", additionalPlayerCards.length);
+        
         let newDeck = [...deck];
         console.log("DECK-LENGTH WITHIN NEW HAND: ", newDeck.length);
         let updatedDeck = getDealerCards(newDeck);
-        // console.log("Deck AFTER DEALER CARDS: ", updatedDeck.length);
         let finalUpdatedDeck = AssignPlayerCards(updatedDeck);
-        // console.log("Deck AFTER PLAYER CARDS: ", finalUpdatedDeck.length);
-        setDeck(finalUpdatedDeck);
+        let additionalPlayerResults;
 
         if (addPlayer) {
-            AssignAdditionalPlayerCards(finalUpdatedDeck);
+            additionalPlayerResults = AssignAdditionalPlayerCards(finalUpdatedDeck);
+            setAdditionalPlayerSum(additionalPlayerResults.additionalPlayerSum);
+            setAdditionalPlayerCards(additionalPlayerResults.additionalPlayerCards);
         }
+
+        const finalFinalUpdatedDeck = additionalPlayerResults ? additionalPlayerResults.cards : finalUpdatedDeck;
+        setDeck(finalFinalUpdatedDeck);}
+
+    }
+
+    function newDeck(){
+        console.log("HEY BROTHER, IT'S TIME FOR A NEW DECK")
+        clearPlayerHands();
+        clearDealerCards();
+        clearAdditionalPlayerHand();
+        // clearPlayerSum();
+        // clearDealerSum();
+        setBetPlaced(false);
+        setMessage("Enjoy the game!");
+        setPot(0);
+        setShowDealerCard(false);
+        // start();
+
+        ////////////////////////////////
+        let newDeck = shuffleDeck(buildDeck());
+        console.log("NEW DECK-LENGTH WITHIN NEW DECK: ", newDeck.length);
+        console.log("NEW DECK WITHIN NEW DECK: ", deck)
+        let updatedDeck = getDealerCards(newDeck);
+        let finalUpdatedDeck = AssignPlayerCards(updatedDeck);
+        let additionalPlayerResults;
+
+        if (addPlayer) {
+            additionalPlayerResults = AssignAdditionalPlayerCards(finalUpdatedDeck);
+            setAdditionalPlayerSum(additionalPlayerResults.additionalPlayerSum);
+            setAdditionalPlayerCards(additionalPlayerResults.additionalPlayerCards);
+        }
+
+        const finalFinalUpdatedDeck = additionalPlayerResults ? additionalPlayerResults.cards : finalUpdatedDeck;
+        setDeck(finalFinalUpdatedDeck);
+        ////////////////////////////////
+
+
     }
 
     function newGame() {
+        console.log("HEY BROTHER, IT'S THE NEEEEEEEEEEEEEEEWW GAME")
         clearPlayerHands();
         clearDealerCards();
         clearAdditionalPlayerHand();
         clearPlayerSum();
         clearDealerSum();
         clearAdditionalPlayerSum();
-        setPlayer2Results("...")
+        setAddPlayer(false);
         setBetPlaced(false);
         setMessage("Enjoy the game!");
         setPot(0);
@@ -499,14 +672,16 @@ const BlackJack = () => {
     function addAPlayer() {
         setAddPlayer(true);
         console.log("DECK WITHIN ADD A PLAYER: ", deck)
-        AssignAdditionalPlayerCards(deck);
+        const additionalPlayerResults = AssignAdditionalPlayerCards(deck);
+        setAdditionalPlayerCards(additionalPlayerResults.additionalPlayerCards);
+        setAdditionalPlayerSum(additionalPlayerResults.additionalPlayerSum);
+        setDeck(additionalPlayerResults.cards);
     }
 
     function removePlayer() {
         setAddPlayer(false);
         setAdditionalPlayerCards([]);
     }
-
 
     function giveBasicTips(sum) {
 
@@ -518,17 +693,18 @@ const BlackJack = () => {
 
         setGameWithTips(true);
 
-        if (sum === 18 && getValue(playerCards[0][0]) === 11 | getValue(playerCards[1][0]) === 11
-            && getValue(playerCards[0][0]) === 7 | getValue(playerCards[1][0]) === 7) {
-            setBasicMessage("Hit Bro BRO BROOOO");
-        // } else if (getValue(playerCards[0][0]) === 11 | getValue(playerCards[1][0]) === 11
+        // if (sum === 18 && getValue(playerCards[0][0]) === 11 | getValue(playerCards[1][0]) === 11
+        //     && getValue(playerCards[0][0]) === 7 | getValue(playerCards[1][0]) === 7) {
+        //     setBasicMessage("Hit Bro BRO BROOOO");
+        // } else 
+        // if (getValue(playerCards[0][0]) === 11 | getValue(playerCards[1][0]) === 11
         //     && getValue(playerCards[0][0]) <= 6 | getValue(playerCards[1][0]) <= 6) {
         //     setBasicMessage("Hit Bro HIIIT");
 
-        } else if (sum >= 16) {
-            setBasicMessage("Stand");
+        if (sum >= 16) {
+            setBasicMessage("Stand Bro");
         } else if (sum <= 12) {
-            setBasicMessage("Hit");
+            setBasicMessage("Hit Bro");
         } else if (sum === 13 || sum === 14 || sum === 15 || sum === 16 && getValue(dealerCards[0][0]) <= 6) {
             setBasicMessage("Stand Bro")
         } else if (sum === 13 || sum === 14 || sum === 15 || sum === 16 && getValue(dealerCards[0][0]) > 6) {
@@ -547,15 +723,6 @@ const BlackJack = () => {
                 </div>
                 {!gameWithTips ? <button className='blackjack-banner-button' onClick={() => giveBasicTips(playerSum)}>Give Basic Tips</button> :
                     <button className='blackjack-banner-button' onClick={() => giveBasicTips(playerSum)}>{basicMessage}</button>
-                    // <div className="conditional-tip-container" >
-                    //     <div className='conditional-tip-render'>
-                    //         <div className='trying-to-make-box-around-tips' onClick={noTips}>
-                    //             <h4>Basic Strategy</h4>
-                    //             <p>{basicMessage}</p>
-                    //         </div>
-
-                    //     </div>
-                    // </div>
                 }
             </div>
             <div className='blackjack-and-tips-container'>
@@ -633,27 +800,21 @@ const BlackJack = () => {
 
                     </div>
                 </div>
-                {/* {gameWithTips ? <div className="conditional-tip-container" >
-                    <div className='conditional-tip-render'>
-                        <div className='trying-to-make-box-around-tips'>
-                            <h4>Basic Strategy Play</h4>
-                            <p>{basicMessage}</p>
-                        </div>
 
-                    </div>
-
-                </div> : null} */}
             </div>
             <div className='blackjack-buttons'>
                 {/* <h5>{message}</h5> */}
 
                 <div className='player-place-bet-div'>
-                    <form>
+                    <div>
                         <input type="text" className="bet-input" placeholder="Enter bet" onChange={(event) => setBet(event.target.value)} />
-                    </form>
-                    <button id="deal" className='button' onClick={betButton}>Bet</button>
-                    <button className='button' id="hit" onClick={handleHitClick}>Hit</button>
-                    <button className='button' id="stay" onClick={stay}>Stand</button>
+                        <button type="button" id="deal" className='button' onClick={betButton}>Bet</button>
+                        <button className='button' id="hit" onClick={handleHitClick}>Hit</button>
+                        <button className='button' id="stay" onClick={stay}>Stand</button>
+
+                    </div>
+                    {/* <button className='button' id="hit" onClick={handleHitClick}>Hit</button>
+                    <button className='button' id="stay" onClick={stay}>Stand</button> */}
                 </div>
                 <div className='action-buttons-div'>
                     {/* <button className='button' id="hit" onClick={handleHitClick}>Hit</button> */}

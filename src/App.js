@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <div className='theWholeDamnImage'></div>
-      <div className='front-app-container'>
+      {/* <div className='front-app-container'>
         {!learnBasic && !playBlackjack && !learnRules && !about ? <h1>Welcome to BlackjackBro(TM)!</h1> : null}
         {!learnBasic && !playBlackjack && !learnRules && !about ? <h2>What Do You Wanna Do?</h2> : null}
         <div className='front-app-button-div'>
@@ -55,9 +55,9 @@ function App() {
       {learnRules && <Rules />}
       {learnBasic && <Basic />}
       {about && <About/>}
-      {playBlackjack && <BlackJack />}
+      {playBlackjack && <BlackJack />} */}
 
-      {/* <BlackJack /> */}
+      <BlackJack />
 
 
     </div>

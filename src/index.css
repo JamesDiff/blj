@@ -7,7 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-form{
+form {
   display: flex;
   justify-content: center;
 }
@@ -31,7 +31,7 @@ form{
   /* min-width: 100vw; */
   background: url(https://upload.wikimedia.org/wikipedia/commons/3/33/Blackjack21.jpg) no-repeat center center fixed;
   background-size: cover;
-  opacity: .30;
+  opacity: .25;
   z-index: 0;
 }
 
@@ -146,20 +146,20 @@ li {
 }
 
 /* --- ABOUT --- */
-.about-container{
-  display:flex;
+.about-container {
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 80%;
 }
 
-.about-button-container{
-  display:flex;
+.about-button-container {
+  display: flex;
   /* flex-direction: column; */
 }
 
-.about-graphs{
+.about-graphs {
   font-size: 1.25rem;
 }
 
@@ -197,7 +197,7 @@ li {
   margin-top: .5rem;
   margin-right: 2rem;
   margin-left: 2rem;
-  margin-bottom:.25rem;
+  margin-bottom: .25rem;
 }
 
 .blackjack-and-tips-container {
@@ -241,13 +241,15 @@ li {
   z-index: 95;
 }
 
-.dealers-container{
-  display:flex;
+.dealers-container {
+  display: flex;
 }
 
 .players-container {
   display: flex;
-  /* flex-direction: column; */
+  justify-content: center;
+  align-items: center;
+  width: 82%;
 }
 
 
@@ -321,6 +323,7 @@ li {
   position: relative;
   opacity: 1 !important;
   z-index: 95;
+  font-size: 1.25rem;
 }
 
 .pot-head {
@@ -337,6 +340,7 @@ li {
   position: relative;
   opacity: 1 !important;
   z-index: 95;
+  font-size: 1.25rem;
 
 }
 
@@ -359,7 +363,7 @@ li {
   position: relative;
   opacity: 1 !important;
   z-index: 95;
-  width: 65%;
+  width: 45%;
 }
 
 
@@ -416,8 +420,8 @@ li {
 /* --- IMAGES --- */
 
 .back-card {
-  width: 6rem;
-  height: 9rem;
+  width: 5rem;
+  height: 8.5rem;
   margin: .25rem;
   position: relative;
   opacity: 1 !important;
@@ -425,8 +429,8 @@ li {
 }
 
 .card {
-  width: 6rem;
-  height: 9rem;
+  width: 5rem;
+  height: 8.5rem;
   margin: .25rem;
   position: relative;
   opacity: 1 !important;
@@ -445,7 +449,7 @@ li {
 /* --- MEDIA QUERIES --- */
 
 
-@media only screen and (max-width:800px) {
+/* @media only screen and (max-width:800px) {
   .card {
     width: 6rem;
     height: 9rem;
@@ -455,6 +459,31 @@ li {
     width: 6rem;
     height: 9rem;
   }
+
+} */
+
+@media only screen and (max-width:900px) {
+  .your-money-head {
+    font-size: 1.1rem;
+  }
+
+  .your-total-head {
+    font-size: 1.1rem;
+  }
+
+}
+
+@media only screen and (max-width:800px) {
+  .your-money-head {
+    font-size: 1rem;
+}
+
+.your-total-head{
+  font-size: 1rem;
+
+}
+
+
 
 }
 
