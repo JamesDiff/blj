@@ -32,6 +32,8 @@ const BlackJack = () => {
 
     const [player2Results, setPlayer2Results] = useState("...");
 
+    const [hitDisabled, setHitDisabled] = useState("false");
+
 
     useEffect(() => {
         console.log("===========================================")
@@ -281,9 +283,6 @@ const BlackJack = () => {
 
         const newAdditionalPlayerSum = reduceAce(additionalPlayerCards.concat(newSecondPlayerCards));
 
-        // setAdditionalPlayerCards([...additionalPlayerCards, ...newSecondPlayerCards]);
-        // console.log("ADDITIONAL PLAYER CARDS IN SECOND PLAYER CARD HIT: ", additionalPlayerCards)
-
         return {
             additionalPlayerCards: newSecondPlayerCards,
             cards,
@@ -325,8 +324,6 @@ const BlackJack = () => {
         setCanHit(false);
         setShowDealerCard(true);
 
-        // const deckUpdate = addPlayer ? secondPlayerResults.cards : dealerResults.cards;
-
         const newPlayerSum = reduceAce(playerCards);
 
         declareWinner(newPlayerSum, dealerResults.dealerSum);
@@ -358,7 +355,7 @@ const BlackJack = () => {
 
         // if (newPlayerSum > 21) {
         //     stay();
-        // }
+        // }  -- PLAYER.SUM?
 
         return {
             newCard: randomCard,
@@ -450,17 +447,17 @@ const BlackJack = () => {
 
     function declareWinner(playerSum, dealerSum) {
 
-        if (playerSum > 21) {
+        if (playerSum > 21 && dealerSum <= 21) {
             setMessage("Dealer Wins");
         }
         else if (playerSum === 21 && playerCards.length === 2) {
             setMessage("Natural Blackjack! You win!");
             addWinnings();
         }
-        else if (playerSum === 21 && playerCards.length === 2) {
-            setMessage("Blackjack! You win!");
-            addWinnings();
-        }
+        // else if (playerSum === 21 && playerCards.length === 2) {
+        //     setMessage("Blackjack! You win!");
+        //     addWinnings();
+        // }
         else if (dealerSum > 21) {
             setMessage("You Win!");
             addWinnings();
@@ -555,9 +552,7 @@ const BlackJack = () => {
         setShowDealerCard(false);
         
         let newDeck = [...deck];
-        // console.log("DECK-LENGTH WITHIN NEW HAND: ", newDeck.length);
         let dealerResults = getDealerCards(newDeck);
-        // console.log("Deck AFTER PLAYER CARDS: ", finalUpdatedDeck.length);
         let assignPlayerResults = AssignPlayerCards(dealerResults.cards);
         
         let dealerCardValue = getValue(dealerResults.newDealerCards[0]);
@@ -589,8 +584,6 @@ const BlackJack = () => {
         clearPlayerHands();
         clearDealerCards();
         clearAdditionalPlayerHand();
-        // clearPlayerSum();
-        // clearDealerSum();
         setBetPlaced(false);
         setMessage("Enjoy the game!");
         setPot(0);
@@ -615,10 +608,8 @@ const BlackJack = () => {
             setAdditionalPlayerSum(additionalPlayerResults.additionalPlayerSum);
             setAdditionalPlayerCards(additionalPlayerResults.additionalPlayerCards);
         }
-
         const finalFinalUpdatedDeck = additionalPlayerResults ? additionalPlayerResults.cards : assignPlayerResults.cards;
         setDeck(finalFinalUpdatedDeck);
-
 
     }
 
