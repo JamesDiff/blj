@@ -76,11 +76,28 @@ const BlackJack = () => {
         let newDeck = shuffleDeck(buildDeck());
         let dealerResults = getDealerCards(newDeck);
         let assignPlayerResults = AssignPlayerCards(dealerResults.cards);
+        const blackjackResults = declareBlackJack(assignPlayerResults.newPlayerSum);
+
+        let reducedPlayerSum = reduceAce(assignPlayerResults.newPlayerCards);
+        let reducedDealerSum = reduceAce(dealerResults.newDealerCards);
+
+        if(blackjackResults === "Natural Blackjack! You win!" ){
+            setMessage(blackjackResults);
+            setDealerSum(reducedDealerSum);
+            setDealerCards(dealerResults.newDealerCards);
+            setPlayerSum(reducedPlayerSum);
+            setPlayerCards(assignPlayerResults.newPlayerCards);
+            return setTimeout(() => {
+                newHand();
+            }, 2500);
+        }
         // setDeck(finalUpdatedDeck);
-        setDealerSum(dealerResults.newDealerSum);
+
+        setDealerSum(reducedDealerSum);
         setDealerCards(dealerResults.newDealerCards);
-        setPlayerSum(assignPlayerResults.newPlayerSum);
+        setPlayerSum(reducedPlayerSum);
         setPlayerCards(assignPlayerResults.newPlayerCards);
+       
         setDeck(assignPlayerResults.cards);
 
     }
@@ -101,9 +118,6 @@ const BlackJack = () => {
 
         let hiddenCardValue = getValue(workingHidden, theSecondCardValue);
 
-        // setDealerSum(theSecondCardValue + hiddenCardValue);
-
-        // setDealerCards([secondCard, workingHidden]);
 
         return {
             cards,
@@ -131,16 +145,6 @@ const BlackJack = () => {
         let cardTwoValue = getValue(card2, updatedSum);
         let newPlayerSum = cardOneValue + cardTwoValue;
 
-        // setPlayerSum(newPlayerSum);
-        // setPlayerCards([card1, card2]);
-
-        // if (gameWithTips) {
-        //     giveBasicTips(newPlayerSum);
-        // }
-        // console.log("NEW PLAYER SUM WITHIN ASSIGN PLAYER CARDS: ", newPlayerSum)
-        // if(newPlayerSum === 21){
-        //     declareBlackJack();
-        // }
         return {
             cards,
             newPlayerSum,
@@ -189,13 +193,10 @@ const BlackJack = () => {
                 sum -= 10;
             }
         }
-
         return sum
     }
 
     function getHandsValue(cards) {
-
-        // console.log("CARDS WITHIN GET HANDS VALUE: ", cards)
 
         let sum = 0;
         cards.forEach((card) => {
@@ -398,51 +399,13 @@ const BlackJack = () => {
         // }
     }
 
-    function declareBlackJack() {
-        setMessage("Natural Blackjack! You win!");
-        setPlayerMoney(playerMoney + (pot * 1.5));
+    function declareBlackJack(playerSum) {
+        console.log("PLAYERSUM WITHIN DECALRE BLACKJACK: ", playerSum);
 
-        clearPlayerHands();
-        clearDealerCards();
-        clearAdditionalPlayerHand();
-        clearPlayerSum();
-        clearDealerSum();
-        clearAdditionalPlayerSum();
-        setPlayer2Results("...")
-        setBetPlaced(false);
-        setMessage("Enjoy the game!");
-        setPot(5);
-        setShowDealerCard(false);
-
-        if (additionalPlayerCards && deck.length < 10) {
-            setMessage("Time for a new deck!");
-            setTimeout(() => {
-                newGame();
-                return;
-            }, 2000);
-
-        } else if (!additionalPlayerCards && deck.length < 6) {
-            setMessage("Time for a new deck!");
-            setTimeout(() => {
-                newGame();
-                return;
-            }, 1500);
-
+        if(playerSum === 21){
+            return "Natural Blackjack! You win!";
         }
-
-        let newDeck = [...deck];
-        console.log("DECK-LENGTH WITHIN NEW HAND: ", newDeck.length);
-        let dealerResults = getDealerCards(newDeck);
-        let assignPlayerResults= AssignPlayerCards(dealerResults.cards);
-        setPlayerSum(assignPlayerResults.newPlayerSum);
-        setPlayerCards(assignPlayerResults.newPlayerCards);
-        setDeck(assignPlayerResults.cards);
-        setDealerCards(dealerResults.newDealerCards);
-        setDealerSum(dealerResults.newDealerSum);
-
-        if (addPlayer) {
-            AssignAdditionalPlayerCards(assignPlayerResults.cards);
-        }
+        
     }
 
     function declareWinner(playerSum, dealerSum) {
@@ -556,16 +519,17 @@ const BlackJack = () => {
         let assignPlayerResults = AssignPlayerCards(dealerResults.cards);
         
         let dealerCardValue = getValue(dealerResults.newDealerCards[0]);
-        giveBasicTips(assignPlayerResults.newPlayerSum, dealerCardValue)
 
+        let reducedPlayerSum = reduceAce(assignPlayerResults.newPlayerCards);
+        let reducedDealerSum = reduceAce(dealerResults.newDealerCards);
 
-        setPlayerSum(assignPlayerResults.newPlayerSum);
+        giveBasicTips(reducedPlayerSum, dealerCardValue)
+
+        setPlayerSum(reducedPlayerSum);
         setPlayerCards(assignPlayerResults.newPlayerCards);
         setDealerCards(dealerResults.newDealerCards);
-        setDealerSum(dealerResults.newDealerSum);
+        setDealerSum(reducedDealerSum);
   
-        // setDeck(assignPlayerResults.cards);
-
         let additionalPlayerResults;
 
         if (addPlayer) {
@@ -585,21 +549,26 @@ const BlackJack = () => {
         clearDealerCards();
         clearAdditionalPlayerHand();
         setBetPlaced(false);
-        setMessage("Enjoy the game!");
+        setMessage("Enjoy the Game!");
         setPot(0);
         setShowDealerCard(false);
-        // start();
+        setPlayer2Results("...")
+
 
         let newDeck = shuffleDeck(buildDeck());
         let dealerResults = getDealerCards(newDeck);
         let assignPlayerResults = AssignPlayerCards(dealerResults.cards);
 
         let dealerCardValue = getValue(dealerResults.newDealerCards[0]);
-        giveBasicTips(assignPlayerResults.newPlayerSum, dealerCardValue)
+
+        let reducedPlayerSum = reduceAce(assignPlayerResults.newPlayerCards);
+        let reducedDealerSum = reduceAce(dealerResults.newDealerCards);
+
+        giveBasicTips(reducedPlayerSum, dealerCardValue)
 
         setDealerCards(dealerResults.newDealerCards);
-        setDealerSum(dealerResults.newDealerSum);
-        setPlayerSum(assignPlayerResults.newPlayerSum);
+        setDealerSum(reducedDealerSum);
+        setPlayerSum(reducedPlayerSum);
         setPlayerCards(assignPlayerResults.newPlayerCards);
         let additionalPlayerResults;
 
