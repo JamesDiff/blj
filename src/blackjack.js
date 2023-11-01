@@ -645,9 +645,9 @@ const BlackJack = () => {
         //     setBasicMessage("Sorry Bro")
         } else if ((sum === 13 || sum === 14 || sum === 15) && dealerCardValue <= 6) {
             // console.log("GET VALUE DEALER CARDS WITHIN IF: ", dealerCardValue)
-            setBasicMessage("Stand Bro Bro")
+            setBasicMessage("Stand Bro")
         } else if ((sum === 13 || sum === 14 || sum === 15) && dealerCardValue > 6) {
-            setBasicMessage("Hit Bro Bro")
+            setBasicMessage("Hit Bro")
         }
 
         //maybe write different function for hit; or just put conditional logic within the function; need more than just the dealers one card value
