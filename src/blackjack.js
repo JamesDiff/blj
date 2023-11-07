@@ -130,7 +130,6 @@ const BlackJack = () => {
     function AssignPlayerCards(deck) {
 
         let cards = [...deck];
-        // console.log("CARDS FROM WITHIN ASSIGN PLAYER CARDS: ", cards);
         let randomIndex = Math.floor(Math.random() * cards.length);
         let card1 = cards[randomIndex];
         cards.splice(randomIndex, 1);
@@ -154,10 +153,8 @@ const BlackJack = () => {
 
     function AssignAdditionalPlayerCards(deck) {
 
-        // console.log("DECK AT THE START OF ASSIGN ADDITIONAL PLAYER CARDS: ", deck)
 
         let cards = [...deck];
-        // console.log("CARDS AFTER ASSIGNMENT IN ASSIGN ADDITIONAL PLAYER CARDS: ", cards)
 
 
         let randomIndex = Math.floor(Math.random() * cards.length);
@@ -186,7 +183,7 @@ const BlackJack = () => {
     }
 
     const reduceAce = (cards) => {
-        console.log("CARDS WITHIN REDUCE ACE: ", cards);
+        // console.log("CARDS WITHIN REDUCE ACE: ", cards);
         let sum = getHandsValue(cards);
         for (let i = 0; i < cards.length; i++) {
             if (cards[i][0] === 'A' && sum > 21) {
@@ -275,7 +272,6 @@ const BlackJack = () => {
         while (workingPlayerSum < 16) {
             let randomIndex = Math.floor(Math.random() * cards.length);
             let newCard = cards[randomIndex];
-            // console.log("NEW CARD WITHIN SECOND PLAYER HIT: ", newCard)
             newSecondPlayerCards.push(newCard);
             cards.splice(randomIndex, 1);
             let newCardValue = getValue(newCard, workingPlayerSum);
@@ -318,7 +314,6 @@ const BlackJack = () => {
 
         const deckAfterSecondPlayer = addPlayer ? secondPlayerResults.cards : deck;
         let dealerResults = dealerHit(deckAfterSecondPlayer, playerSum);
-        // console.log(dealerResults);
 
         setDealerSum(dealerResults.dealerSum);
         setDealerCards(dealerCards.concat(dealerResults.newCards));
@@ -367,7 +362,6 @@ const BlackJack = () => {
 
     function handleHitClick() {
 
-        // console.log("PLAYER SUM AT THE START OF HANDLE HIT CLICK: ", playerSum);
 
         if (!betPlaced) {
             setMessage("Place Bet");
@@ -400,7 +394,7 @@ const BlackJack = () => {
     }
 
     function declareBlackJack(playerSum) {
-        console.log("PLAYERSUM WITHIN DECALRE BLACKJACK: ", playerSum);
+        // console.log("PLAYERSUM WITHIN DECALRE BLACKJACK: ", playerSum);
 
         if(playerSum === 21){
             return "Natural Blackjack! You win!";
@@ -644,7 +638,6 @@ const BlackJack = () => {
         // } else if(sum > 21){
         //     setBasicMessage("Sorry Bro")
         } else if ((sum === 13 || sum === 14 || sum === 15) && dealerCardValue <= 6) {
-            // console.log("GET VALUE DEALER CARDS WITHIN IF: ", dealerCardValue)
             setBasicMessage("Stand Bro")
         } else if ((sum === 13 || sum === 14 || sum === 15) && dealerCardValue > 6) {
             setBasicMessage("Hit Bro")
